@@ -15,15 +15,17 @@ import os
 import requests
 from geopy.geocoders import Nominatim
 
-IPSTACKKEY = os.environ['IP_STACK_API']
+# IPSTACKKEY = os.environ['IP_STACK_API']
 GOOGLE_MAPS_API_KEY = os.environ['GOOGLE_MAPS_API_KEY']
 GMAPS = googlemaps.Client(key=GOOGLE_MAPS_API_KEY)
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'happyhourwdi'
 
-data = requests.get("http://iatacodes.org/api/v6/cities?api_key=c05152c1-441f-430e-9c6c-54dca70f1427")
-res = data.json()['request']
+# IATA_KEY = os.environ['IATA_KEY']
+
+# data = requests.get(f"http://iatacodes.org/api/v6/cities?api_key={IATA_KEY}")
+# res = data.json()['request']
 
 @login_required
 def inputnearby(request):
@@ -31,6 +33,7 @@ def inputnearby(request):
 
 @login_required
 def nearby(request):
+  # address verification
   address = request.POST.get('address')
   if address == None:
     address = request.session.get('session_address', 'no_address')
@@ -39,6 +42,7 @@ def nearby(request):
   else: 
     request.session['session_address'] = address
     request.session.modified = True
+
   geolocator = Nominatim(user_agent="drinkon")
   location = geolocator.geocode(address)
   if location == None:
