@@ -1,12 +1,6 @@
-from datetime import datetime
-from django.utils import timezone
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from ..models import Photo
 
 def signup(request):
   error_message = ''
